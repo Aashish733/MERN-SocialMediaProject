@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import type { RootState } from "../../store/store";
 import { getSocket } from "../../socket";
+import { Avatar } from "../ui/Avatar";
 
 const ChatBar = () => {
   const loggedInUser = useSelector((state: RootState) => state.auth.user);
@@ -20,7 +21,7 @@ const ChatBar = () => {
         const response = await getUserConversations();
         setConversations(response);
       } catch (error) {
-        console.log("Failed to fetch your followers");
+        console.log("Failed to fetch your conversations");
       } finally {
         setLoading(false);
       }
@@ -38,53 +39,8 @@ const ChatBar = () => {
   }, []);
 
   return (
-    // <div className="w-[300px] shrink-0 h-full border-l border-white/10 text-white flex flex-col">
-    //   <h2 className="px-4 pb-3 text-lg font-semibold border-b border-white/10 my-4">
-    //     Chats
-    //   </h2>
-
-    //   {loading ? (
-    //     <div className="flex-1 flex items-center justify-center">
-    //       <Spinner />
-    //     </div>
-    //   ) : conversations.length === 0 ? (
-    //     <p className="text-sm text-white/60 text-center mt-6">
-    //       No conversations yet
-    //     </p>
-    //   ) : (
-    //     <div className="flex-1 overflow-y-auto">
-    //       {conversations.map((conv) => {
-    //         const otherUser = conv.participants.find(
-    //           (p) => p._id !== loggedInUser?._id,
-    //         );
-    //         return (
-    //           <div
-    //             key={conv._id}
-    //             onClick={() => navigate(`/chat/${otherUser?._id}`)}
-    //             className="flex items-center gap-3 px-4 py-3 hover:bg-white/5 cursor-pointer transition"
-    //             // onClick={() => console.log("Open chat with", otherUser?._id)}
-    //           >
-    //             <img
-    //               src={otherUser?.profileImage || "/avatar.png"}
-    //               className="w-9 h-9 rounded-full object-cover"
-    //               alt=""
-    //             />
-    //             <span className="text-sm font-medium">
-    //               {otherUser?.username}
-    //             </span>
-    //             <span className="text-sm text-white/60 truncate max-w-[160px]">
-    //               {conv.lastMessage?.text || "Image"}
-    //             </span>
-    //           </div>
-    //         );
-    //       })}
-    //     </div>
-    //   )}
-    // </div>
-
-    // <div className="w-[300px] shrink-0 h-full border-l border-white/10 text-white flex flex-col">
-    <div className="hidden xl:flex w-72 shrink-0 h-full border-l border-white/10 text-white flex-col">
-      <h2 className="px-4 pb-3 text-lg font-semibold border-b border-white/10 my-4">
+    <div className="hidden xl:flex w-72 shrink-0 h-full border-l border-border bg-card text-card-foreground flex-col">
+      <h2 className="px-4 pb-3 text-lg font-semibold border-b border-border my-4">
         Chats
       </h2>
 
@@ -93,7 +49,7 @@ const ChatBar = () => {
           <Spinner />
         </div>
       ) : conversations.length === 0 ? (
-        <p className="text-sm text-white/60 text-center mt-6">
+        <p className="text-sm text-muted-foreground text-center mt-6">
           No conversations yet
         </p>
       ) : (
@@ -107,31 +63,27 @@ const ChatBar = () => {
               <div
                 key={conv._id}
                 onClick={() => navigate(`/chat/${otherUser?._id}`)}
-                className="flex items-center gap-3 px-4 py-3 hover:bg-white/5 cursor-pointer transition"
+                className="flex items-center gap-3 px-4 py-3 hover:bg-muted cursor-pointer transition-colors"
               >
                 {/* Avatar */}
-                <img
-                  src={otherUser?.profileImage || "/avatar1.jpg"}
-                  className="w-9 h-9 rounded-full object-cover"
-                  alt=""
-                />
+                <Avatar src={otherUser?.profileImage} alt={otherUser?.username} />
 
                 {/* Text Section */}
                 <div className="flex flex-col flex-1 min-w-0">
                   <div className="flex justify-between items-center">
-                    <span className="text-sm font-medium truncate">
+                    <span className="text-sm font-medium truncate text-foreground">
                       {otherUser?.username}
                     </span>
 
-                    {/* 🔥 Unread Badge */}
+                    {/* Unread Badge */}
                     {conv.unreadCount > 0 && (
-                      <span className="bg-red-500 text-white text-xs font-semibold px-2 py-0.5 rounded-full">
+                      <span className="bg-destructive text-destructive-foreground text-xs font-semibold px-2 py-0.5 rounded-full">
                         {conv.unreadCount}
                       </span>
                     )}
                   </div>
 
-                  <span className="text-xs text-white/60 truncate">
+                  <span className="text-xs text-muted-foreground truncate">
                     {conv.lastMessage?.text || "Image"}
                   </span>
                 </div>

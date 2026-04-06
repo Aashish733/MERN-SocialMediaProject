@@ -9,11 +9,13 @@ import { loginUser } from "../../api/auth.api";
 import Spinner from "../General/Spinner";
 import { useDispatch } from "react-redux";
 import { setUser } from "../../store/slices/authSlice";
+import { Button } from "../ui/Button";
+import { Input } from "../ui/Input";
+import { Card, CardContent, CardHeader, CardTitle } from "../ui/Card";
 
 const LoginUserForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [serverError, setServerError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
   const {
     register,
@@ -25,110 +27,61 @@ const LoginUserForm = () => {
   });
 
   const onSubmit = async (data: LoginUserFormData) => {
-    // console.log(data);
     try {
       setLoading(true);
-      setServerError(null);
-
       const response = await loginUser(data);
       dispatch(setUser(response.data.user));
       toast.success(`Welcome Back ${response.data.user.username}`);
       reset();
       navigate("/");
     } catch (error: any) {
-      setServerError(error.message);
       toast.error(error.message);
     } finally {
       setLoading(false);
     }
   };
 
-  const inputBase =
-    "w-full bg-[#15151c] border text-gray-100 px-2 py-2 rounded-xl outline-none transition-all duration-200 placeholder:text-gray-500";
-
-  const inputFocus =
-    "focus:border-[#9929EA] focus:ring-2 focus:ring-[#9929EA]/30";
-
-  const inputError = "border-red-500 focus:ring-red-500/20";
-
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit)}
-      className="flex flex-col gap-3 text-sm"
-    >
-      <div className="flex flex-col gap-2">
-        <label className="text-[#9929EA]">Username or Email</label>
-        {/* <input
-          type="text"
-          {...register("identifier")}
-          placeholder="enter your username or email"
-          className="text-white p-2 border rounded-xl"
-        />
-        {errors.identifier && (
-          <p className="text-red-400 text-xs h-4">
-            {errors.identifier.message}
-          </p>
-        )} */}
+    <Card className="border-border shadow-xl">
+      <CardHeader>
+        <CardTitle className="text-center text-xl">Login To Your Account</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+          <div className="space-y-2">
+            <label className="text-sm font-medium leading-none text-foreground">Username or Email</label>
+            <Input
+              type="text"
+              {...register("identifier")}
+              placeholder="Enter your username or email"
+              className={errors.identifier ? "border-destructive focus-visible:ring-destructive" : ""}
+            />
+            <p className="text-destructive text-xs min-h-[16px]">{errors.identifier?.message}</p>
+          </div>
 
-        <input
-          type="text"
-          {...register("identifier")}
-          placeholder="Create your username"
-          className={`${inputBase} ${inputFocus} ${errors.identifier ? inputError : "border-[#2a2a35]"
-            }`}
-        />
+          <div className="space-y-2">
+            <label className="text-sm font-medium leading-none text-foreground">Password</label>
+            <Input
+              type="password"
+              {...register("password")}
+              placeholder="Enter your password"
+              className={errors.password ? "border-destructive focus-visible:ring-destructive" : ""}
+            />
+            <p className="text-destructive text-xs min-h-[16px]">{errors.password?.message}</p>
+          </div>
 
-        <p className="text-red-500 text-xs mt-1 min-h-[16px]">
-          {errors.identifier?.message}
-        </p>
-      </div>
+          <div className="text-center">
+            <Link to="/register" className="text-sm text-muted-foreground hover:text-primary transition-colors hover:underline">
+              Don't have an account?
+            </Link>
+          </div>
 
-      <div className="flex flex-col gap-2">
-        {/* <label className="text-[#9929EA]">Password</label>
-        <input
-          type="password"
-          {...register("password")}
-          placeholder="enter your password"
-          className="text-white p-2 border rounded-xl"
-        />
-        {errors.password && (
-          <p className="text-red-400 text-xs h-4">{errors.password.message}</p>
-        )} */}
-        <label className="text-[#9929EA]">Password</label>
-        <input
-          type="password"
-          {...register("password")}
-          placeholder="Enter your password"
-          className={`${inputBase} ${inputFocus} ${errors.password ? inputError : "border-[#2a2a35]"
-            }`}
-        />
-
-        <p className="text-red-500 text-xs mt-1 min-h-[16px]">
-          {errors.password?.message}
-        </p>
-      </div>
-      <Link to="/register" className="text-[#9929EA]">
-        Don't have an account?
-      </Link>
-      <button
-        type="submit"
-        disabled={loading}
-        className="
-          w-full bg-[#9929EA]
-          hover:bg-[#7b14c4]
-          text-white font-semibold
-          py-3 rounded-xl
-          transition-all duration-200
-          active:scale-[0.98]
-          disabled:opacity-60
-          disabled:cursor-not-allowed
-          flex items-center justify-center
-          cursor-pointer
-        "
-      >
-        {loading ? <Spinner /> : "Login"}
-      </button>
-    </form>
+          <Button type="submit" disabled={loading} className="w-full h-11">
+            {loading ? <Spinner /> : "Login"}
+          </Button>
+        </form>
+      </CardContent>
+    </Card>
   );
 };
 

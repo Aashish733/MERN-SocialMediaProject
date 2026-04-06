@@ -20,45 +20,51 @@ const MobileNav = () => {
     setMenuOpen(false);
   }, [location.pathname]);
 
+  const navClasses = "flex flex-col items-center justify-center p-2 text-muted-foreground hover:text-foreground transition-colors";
+
   return (
     <>
-      <div className="fixed bottom-0 left-0 right-0 bg-black border-t border-white/10 flex justify-around py-3 lg:hidden z-[100]">
+      <div className="fixed bottom-0 left-0 right-0 bg-background border-t border-border flex justify-around py-2 lg:hidden z-[100]">
         <Link
+          className={navClasses}
           to="/"
           onClick={() => {
             setChatOpen(false);
             setMenuOpen(false);
           }}
         >
-          <Home />
+          <Home size={24} />
         </Link>
 
         <button
+          className={navClasses}
           onClick={() => {
             setMenuOpen(false);
             setChatOpen(true);
           }}
         >
-          <MessageCircle />
+          <MessageCircle size={24} />
         </button>
 
         <Link
+          className={navClasses}
           to={`/profile/${user?.username}`}
           onClick={() => {
             setChatOpen(false);
             setMenuOpen(false);
           }}
         >
-          <User2 />
+          <User2 size={24} />
         </Link>
 
         <button
+          className={navClasses}
           onClick={() => {
             setChatOpen(false);
             setMenuOpen(true);
           }}
         >
-          <Menu />
+          <Menu size={24} />
         </button>
       </div>
 

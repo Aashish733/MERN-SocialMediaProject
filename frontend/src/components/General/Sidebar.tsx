@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { logout } from "../../store/slices/authSlice";
 import { useState } from "react";
 import { Home, LogOut, User2 } from "lucide-react";
+import { Button } from "../ui/Button";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -25,14 +26,13 @@ const Sidebar = () => {
   const loggedInUser = useSelector((state: RootState) => state.auth.user);
 
   const baseClasses =
-    "border border-white/20 text-white px-4 py-2 rounded-xl text-sm font-semibold transition cursor-pointer flex gap-1 justify-center items-center hover:scale-[1.02]";
+    "px-4 py-2 rounded-xl text-sm font-medium transition-colors flex gap-2 justify-center items-center";
 
-  const inactiveClasses = "bg-white/20 border-white";
-  const activeClasses = "bg-[#9929EA]";
+  const inactiveClasses = "bg-transparent text-muted-foreground hover:bg-muted hover:text-foreground";
+  const activeClasses = "bg-primary text-primary-foreground shadow-sm shadow-black/20";
   return (
-    // <div className="w-65 shrink-0 h-full border-r border-white/10 text-white flex flex-col items-center justify-between py-6">
-    <div className="hidden lg:flex w-64 shrink-0 h-full border-r border-white/10 text-white flex-col items-center justify-between py-6">
-      <div className="flex flex-col gap-4">
+    <div className="hidden lg:flex w-64 shrink-0 h-full border-r border-border bg-card text-card-foreground flex-col items-center justify-between py-6">
+      <div className="flex flex-col gap-4 w-full px-4">
         <NavLink
           to={`/`}
           end
@@ -54,14 +54,15 @@ const Sidebar = () => {
           Profile
         </NavLink>
       </div>
-      <div>
-        <button
+      <div className="w-full px-4">
+        <Button
+          variant="destructive"
           onClick={handleLogout}
-          className="border border-white/20 text-white hover:bg-white/10 bg-red-600 px-4 py-2 rounded-xl text-sm font-semibold transition disabled:opacity-50 cursor-pointer hover:scale-[1.02] flex items-center justify-center gap-1"
+          className="w-full flex items-center justify-center gap-2"
         >
           <LogOut size={18} />
           Logout
-        </button>
+        </Button>
       </div>
     </div>
   );

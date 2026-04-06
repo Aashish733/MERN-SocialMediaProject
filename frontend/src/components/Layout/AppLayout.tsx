@@ -12,7 +12,7 @@ interface AppLayoutProps {
 
 const AppLayout = ({ children, variant = "feed" }: AppLayoutProps) => {
   return (
-    <div className="h-screen flex bg-black text-white overflow-hidden">
+    <div className="h-screen flex bg-background text-foreground overflow-hidden">
       {/* Sidebar */}
       <Sidebar />
 

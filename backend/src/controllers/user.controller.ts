@@ -88,8 +88,9 @@ export const registerUser = async (req: Request, res: Response) => {
 
     const cookiesOptions = {
       httpOnly: true,
-      secure: false,
-    };
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    } as const;
 
     return res
       .status(201)
@@ -159,8 +160,9 @@ export const loginUser = async (req: Request, res: Response) => {
 
     const cookiesOptions = {
       httpOnly: true,
-      secure: false,
-    };
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    } as const;
 
     return res
       .status(200)
@@ -219,8 +221,9 @@ export const logoutUser = async (req: Request, res: Response) => {
 
     const cookieOptions = {
       httpOnly: true,
-      secure: false,
-    };
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    } as const;
 
     return res
       .status(200)
@@ -306,8 +309,9 @@ export const refreshAccessToken = async (req: Request, res: Response) => {
 
     const cookieOptions = {
       httpOnly: true,
-      secure: false,
-    };
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    } as const;
 
     return res
       .status(201)

@@ -35,7 +35,7 @@ const LoginUserForm = () => {
       reset();
       navigate("/");
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || error.message);
     } finally {
       setLoading(false);
     }

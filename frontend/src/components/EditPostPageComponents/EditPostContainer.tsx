@@ -38,7 +38,7 @@ const EditPostContainer = ({ content }: props) => {
       navigate("/");
     } catch (error: any) {
       console.log(error);
-      toast.error(error.message || "Failed to update post");
+      toast.error(error.response?.data?.message || error.message || "Failed to update post");
     } finally {
       setLoading(false);
     }

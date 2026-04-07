@@ -56,7 +56,7 @@ const UserInfo = ({ user, refetchProfile }: UserInfoProps) => {
       setIsEditingBio(false);
       refetchProfile?.();
     } catch (error: any) {
-      toast.error(error.message || "Failed to save bio");
+      toast.error(error.response?.data?.message || error.message || "Failed to save bio");
     } finally {
       setBioLoading(false);
     }
@@ -117,7 +117,7 @@ const UserInfo = ({ user, refetchProfile }: UserInfoProps) => {
       toast.success("Profile image updated successfully");
       refetchProfile?.();
     } catch (error: any) {
-      toast.error(error.message || "Failed to update the profile image");
+      toast.error(error.response?.data?.message || error.message || "Failed to update the profile image");
     } finally {
       setImageUploading(false);
     }

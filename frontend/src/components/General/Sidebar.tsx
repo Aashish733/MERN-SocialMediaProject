@@ -20,7 +20,7 @@ const Sidebar = () => {
       navigate("/login", { replace: true });
     } catch (error: any) {
       setServerError(error.message);
-      toast.error(error.message);
+      toast.error(error.response?.data?.message || error.message);
     }
   };
   const loggedInUser = useSelector((state: RootState) => state.auth.user);

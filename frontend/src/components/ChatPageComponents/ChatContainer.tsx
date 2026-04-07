@@ -129,7 +129,7 @@ const ChatContainer = () => {
       removeImage();
     } catch (error: any) {
       console.log(error);
-      toast.error(error.message || "Failed to send message");
+      toast.error(error.response?.data?.message || error.message || "Failed to send message");
     } finally {
       setSendMessageLoading(false);
     }

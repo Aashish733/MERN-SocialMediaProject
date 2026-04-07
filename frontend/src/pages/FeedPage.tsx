@@ -26,7 +26,7 @@ const FeedPage = () => {
         console.log({ feedPosts });
       } catch (error: any) {
         setServerError(error.message);
-        toast.error(error.message);
+        toast.error(error.response?.data?.message || error.message);
       } finally {
         setLoadingPosts(false);
       }

@@ -32,7 +32,7 @@
 //       navigate("/");
 //     } catch (error: any) {
 //       console.log(error);
-//       toast.error(error.message || "Failed to upload post");
+//       toast.error(error.response?.data?.message || error.message || "Failed to upload post");
 //     } finally {
 //       setLoading(false);
 //     }
@@ -174,7 +174,7 @@ const UploadPostContainer = () => {
       navigate("/");
     } catch (error: any) {
       console.log(error);
-      toast.error(error.message || "Failed to upload post");
+      toast.error(error.response?.data?.message || error.message || "Failed to upload post");
     } finally {
       setLoading(false);
     }

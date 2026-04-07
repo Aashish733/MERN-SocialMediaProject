@@ -59,7 +59,7 @@ const FeedPost = ({ post }: FeedPostProps) => {
 
       await toggleLikePost(post._id);
     } catch (error: any) {
-      toast.error(error.message || "Failed to toggle like");
+      toast.error(error.response?.data?.message || error.message || "Failed to toggle like");
       if (isLikedByMe) {
         setLikes((prev) => [...prev, user._id]);
         setLikeCount((prev) => prev + 1);
@@ -100,7 +100,7 @@ const FeedPost = ({ post }: FeedPostProps) => {
       setCommentText("");
       toast.success("Comment posted");
     } catch (error: any) {
-      toast.error(error.message || "Failed to add comment");
+      toast.error(error.response?.data?.message || error.message || "Failed to add comment");
     }
   };
 
@@ -111,7 +111,7 @@ const FeedPost = ({ post }: FeedPostProps) => {
       setCommentsCount((prev) => prev - 1);
       toast.success("Comment deleted");
     } catch (error: any) {
-      toast.error(error.message || "Failed to delete comment");
+      toast.error(error.response?.data?.message || error.message || "Failed to delete comment");
     }
   };
 

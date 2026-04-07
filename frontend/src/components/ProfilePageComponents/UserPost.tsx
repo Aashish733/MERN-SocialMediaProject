@@ -58,7 +58,7 @@ const UserPost = ({ post, onDeletePost }: props) => {
       toast.success("Post deleted successfully");
       setShowConfirm(false);
     } catch (error: any) {
-      toast.error(error?.message || "Failed to delete post");
+      toast.error(error?.response?.data?.message || error?.message || "Failed to delete post");
     } finally {
       setDeleting(false);
     }
@@ -117,7 +117,7 @@ const UserPost = ({ post, onDeletePost }: props) => {
       setCommentText("");
       toast.success("Comment posted");
     } catch (error: any) {
-      toast.error(error.message || "Failed to add comment");
+      toast.error(error.response?.data?.message || error.message || "Failed to add comment");
     }
   };
 
@@ -128,7 +128,7 @@ const UserPost = ({ post, onDeletePost }: props) => {
       setCommentsCount((prev) => prev - 1);
       toast.success("Comment deleted");
     } catch (error: any) {
-      toast.error(error.message || "Failed to delete comment");
+      toast.error(error.response?.data?.message || error.message || "Failed to delete comment");
     }
   };
 

@@ -23,7 +23,7 @@ const PostDetailPage = () => {
         const data = await getPostById(postId);
         setPost(data);
       } catch (error: any) {
-        toast.error(error.message);
+        toast.error(error.response?.data?.message || error.message);
       } finally {
         setLoading(false);
       }

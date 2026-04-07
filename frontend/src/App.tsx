@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
 import RegisterPage from "./pages/RegisterPage";
 import LoginPage from "./pages/LoginPage";
-import { toast, ToastContainer } from "react-toastify";
+import { toast, Toaster } from "sonner";
 import FeedPage from "./pages/FeedPage";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -58,6 +58,7 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-[#000000]  w-full overflow-x-hidden">
+      <Toaster position="top-center" />
       <Routes>
         <Route
           path="/"
@@ -124,7 +125,7 @@ const App = () => {
           }
         />
       </Routes>
-      <ToastContainer />
+
     </div>
   );
 };
